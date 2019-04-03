@@ -10,12 +10,14 @@ var si;
 
 $(document).ready(function() {
 	$("#play").click(function() {
+		document.getElementById("audio").play();
 		$("#output").text("Ready...");
 		si = setInterval(updateKey, 2000);
 	});
 });
 
 function updateKey() {
+	$("#game").attr("src", "../resources/img/s.jpg");
 	startTime = new Date();
 	currentKey = keys[Math.floor(Math.random() * 4)];
 	$("#output").text("Press " + currentKey);
@@ -28,6 +30,7 @@ function main() {
 		var ms = (now.getSeconds() * 1000 + now.getMilliseconds()) - (startTime.getSeconds() * 1000 + startTime.getMilliseconds());
 		if(ms > interval) {
 			$("#output").text("Too slow! Game Over!");
+			$("#game").attr("src", "../resources/img/explosion.jpg");
 			running = false;
 			clearInterval(si);
 		} else {
@@ -35,7 +38,9 @@ function main() {
 				running = false;
 				if(pressedKey == currentKey) {
 					$("#output").text("Good job.");
+					$("#game").attr("src", "../resources/img/check.jpg");
 				} else {
+					$("#game").attr("src", "../resources/img/explosion.jpg");
 					$("#output").text("Wrong Key! Game Over!");
 					clearInterval(si);
 				}
