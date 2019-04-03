@@ -1,0 +1,24 @@
+body{
+	background:#3B82BF;
+}
+
+#inputEmail {
+	width:50%;
+	margin:auto;
+	margin-bottom:1.5em;
+}
+
+#inputPassword {
+	width:50%;
+	margin:auto;
+	margin-bottom:2em;
+}
+
+.form-signin{
+	width:40%;
+	margin:auto;
+	margin-top:3em;
+	padding:1.5em;
+	background:#4F5902;
+	box-shadow: 5px 5px 10px #575757;
+}
