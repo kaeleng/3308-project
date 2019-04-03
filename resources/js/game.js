@@ -12,7 +12,7 @@ $(document).ready(function() {
 	$("#play").click(function() {
 		document.getElementById("audio").play();
 		$("#output").text("Ready...");
-		si = setInterval(updateKey, 2000);
+		si = setInterval(updateKey, 4000);
 	});
 });
 
@@ -27,7 +27,7 @@ function updateKey() {
 function main() {
 	if(running) {
 		var now = new Date();
-		var ms = (now.getSeconds() * 1000 + now.getMilliseconds()) - (startTime.getSeconds() * 1000 + startTime.getMilliseconds());
+		var ms = (now.getSeconds() * 2000 + now.getMilliseconds()) - (startTime.getSeconds() * 1000 + startTime.getMilliseconds());
 		if(ms > interval) {
 			$("#output").text("Too slow! Game Over!");
 			$("#game").attr("src", "../resources/img/explosion.jpg");
