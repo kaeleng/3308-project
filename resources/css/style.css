@@ -11,6 +11,12 @@ body{
 #inputPassword {
 	width:50%;
 	margin:auto;
+	margin-bottom:1.5em;
+}
+
+#confirmPassword {
+	width:50%;
+	margin:auto;
 	margin-bottom:2em;
 }
 
