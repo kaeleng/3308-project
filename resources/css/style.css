@@ -14,6 +14,17 @@ body{
 	margin-bottom:1.5em;
 }
 
+#checkPassword{
+	width:50%;
+	margin:auto;
+	margin-bottom:1.5em;
+}
+
+#pswLabel{
+	width:50%;
+	margin:auto;
+}
+
 .myClass{
 	width:50%;
 	margin:auto;
