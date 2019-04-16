@@ -8,14 +8,11 @@
 var express = require('express'); //Ensure our express framework has been added
 var app = express();
 var bodyParser = require('body-parser'); //Ensure our body-parser tool has been added
-var passport = require("passport");
 app.use(bodyParser.json());              // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
-app.use(passport.initialize());
-app.use(passport.session());
+
 //Create Database Connection
 var pgp = require('pg-promise')();
-const bcrypt = require('bcrypt');
 const uuidv4 = require('uuid/v4');
 const LocalStrategy = require('passport-local').Strategy;
 // const pgp = new pgp({
