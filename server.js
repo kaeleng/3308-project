@@ -101,7 +101,7 @@ app.post('/register', function(req, res){
                 userDate: ''
             })
           });
-    res.redirect('/learn');
+    res.redirect('/selection');
 });
 
 app.get('/scores', function(req,res){
