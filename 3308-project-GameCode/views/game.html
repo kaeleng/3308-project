@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="../resources/js/game.js"></script>
+	<title>Bop That!</title>
+	<style>
+		* {
+			font-size: 1.36em;
+			font-family: Helvetica;
+			text-align: center;
+		}
+		body {
+			background-color: #f8f8f8;
+		}
+		#top {
+			position: absolute;
+			right: 2%;
+			width: 96%;
+			bottom: 60%;
+		}
+		#bottom {
+			position: absolute;
+			right: 2%;
+			width: 96%;
+			top: 45%;
+		}
+
+		#output {
+			margin-right: .4em;
+		}
+		#highlight {
+			font-family: Courier;
+			--highlight-hue: 30;
+			border: 2px solid hsl(var(--highlight-hue), 100%, 50%);
+			color: hsl(var(--highlight-hue), 100%, 43%);
+			background-color: hsla(var(--highlight-hue), 100%, 50%, 15%);
+			border-radius: 5px;
+			padding: 7px 15px 9px;
+		}
+
+		.button {
+			background-color: rgba(255, 255, 255, 0);
+			color: black;
+			border: 2px solid var(--main-color);
+			border-radius: 5px;
+			padding: 16px 32px;
+			margin-right: 10px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			-webkit-transition-duration: 0.4s; /* Safari */
+			transition-duration: 0.4s;
+			cursor: pointer;
+		}
+		.button:hover {
+			background-color: var(--main-color);
+			color: white;
+		}
+		.popup {
+			font-size: 1em;
+			font-style: italic;
+			margin: 25px 18px 0px 0px;
+			color: #888888;
+		}
+
+		#play {
+			--main-color: #4CAF50;
+		}
+		#restart {
+			--main-color: red;
+			font-size: .8em;
+		}
+
+	</style>
+</head>
+<body>
+	<div id="top">
+		<span id="output">Get ready to</span><span id="highlight">Bop That!</span><br>
+	</div>
+<div id="bottom">
+	<button class="button" id="play">PLAY</button>
+	<button class="button" id="restart">Restart</button><br>
+	<p class="popup" id="score"></p>
+	<p class="popup" id="speed">Speeding up!</p>
+	<p class="popup" id="letter">More letters added!</p>
+</div>
+
+	<audio id="audio">
+		<source src="../resources/music/BopThat.mp3" type="audio/mpeg"/>
+	</audio>
+
+	<!--
+	<div id="game">
+		<img id="background">
+	</div>
+	-->
+
+</body>
+</html>
