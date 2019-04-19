@@ -51,7 +51,7 @@ app.use(express.static(__dirname + '/'));//This line is necessary for us to use 
 
 
 app.get('/selection', function(req, res) {
-  res.render('pages/selection.ejs',{
+  res.render('pages/homePage.ejs',{
     my_title:"Learn Page"
   });
 });
@@ -59,11 +59,6 @@ app.get('/selection', function(req, res) {
 
 
 
-app.get('/learn', function(req, res) {
-  res.render('pages/learn.ejs',{
-    my_title:"Learn Page"
-  });
-});
 
 app.get('/game', function(req, res) {
   res.render('pages/game.ejs',{
@@ -108,6 +103,15 @@ app.post('/register', function(req, res){
           });
     res.redirect('/learn');
 });
+
+app.get('/scores', function(req,res){
+	res.render('pages/highscores.ejs',{
+		my_title: "Top Scores"
+	});
+});
+
+
+
 
 app.listen(3000);
 console.log('3000 is the magic port');
