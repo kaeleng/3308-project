@@ -22,23 +22,23 @@
 	font-size: 70px;
 }
 
-.h2 {
+.header h2 {
 	font-size: 50px;
 	text-align: center;
 }
 
-.h3 {
+.header h3 {
 	font-size: 30px;
 	text-align: left;
 }
 
-.h4 {
+.header h4 {
 	font-size: 30px;
 	text-align: left;
 
 }
 
-.h5 {
+.header h5 {
 	font-size: 90px;
 	text-align: left;
 	padding: 20px;
