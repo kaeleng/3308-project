@@ -1,5 +1,5 @@
 var score = 0;
-var optimalScore = 0;
+var bops = 0;
 var keyPressed = false;
 var startTime = new Date();
 var currentKey = "a";
@@ -8,18 +8,17 @@ var interval = 2000;
 var running = false;
 var won = false;
 var keys = ['a', 's', 'd', 'f'];
-var messages = ["Good job!", "Bopped that one!", "Impressive!", "Great work!", "Fantastic!", "Incredible!", "lol gottem", "You have most certainly bopped that."];
-var keysAdded = false;
+var messages = ["Good job!", "Bopped that one!", "Impressive!", "Great work!", "Fantastic!", "Incredible!", "lol gottem", "You have most certainly bopped that.", "Hot dog!", "Great work, sport!", "Whomst'd've hath did this?", "WhO iS ThIS gUy?", "Y'all ain't ready", "Here it comes!", "You're fast as Sonic!", "You're rougher than the rest of 'em", "That just got BOPPED!"];
 var si;
 var audio;
 var ready = true;
 var stage = 0;
-var time = 0;
-var latency = .1; // seconds of audio delay, varies with computer, when submitting final work maybe set to .1
-// with Nate W's bluetooth headphones it's .35
+var latency = 0; // seconds of audio delay, varies with computer, when submitting final work maybe set to .1
+// with Nate W's bluetooth earbuds it's .35
 
 $(document).ready(function() {
 	$("#restart").hide();
+	$("#score").hide();
 	$("#speed").hide();
 	$("#letter").hide();
 	audio = document.getElementById("audio");
@@ -38,6 +37,7 @@ $(document).ready(function() {
 	$("#play").click(function() {
 		$("#latency").hide();
 		$("#play").hide();
+		$("#leave").hide();
 		changeText("Ready...", "");
 		audio.play();
 		setTimeout(function(){si = setInterval(updateKey, 2000);}, 1000*latency + 2000);
@@ -63,20 +63,20 @@ function endGame(message) {
 	running = false;
 	if (won) {
 		$("body").css("background-color", "#f8f8f8");
+		$("#highlight").css("color", "hsl(30, 100%, 43%)");
+		$("#highlight").css("border", "2px solid hsl(30, 100%, 50%)");
+		$("#highlight").css("background-color", "hsla(30, 100%, 50%, 15%)");
 		changeText(message, "YOU WIN!");
-		console.log("winner!!!!");
 		$("#speed").html('<a href="https://qph.fs.quoracdn.net/main-raw-161075514-idrkoylvendsmeupjgsozbluzstiskbk.jpeg" target="_blank">Click here to claim your prize!</a>');
 		$("#speed").show();
 	} else {
 		audio.pause();
 		changeText(message, "Game Over");
-		if (message == "Wrong Key!")
-			console.log("Expected '" + currentKey + "', detected '" + pressedKey + "'");
-		//$("#game").attr("src", "../resources/img/explosion.jpg");
 	}
-	$("#score").text("score: " + String(score) + "  (" + String(optimalScore/1000) + " bops, " + String(Math.floor(score*100/optimalScore)) + "% accuracy)");
-	setInterval(function(){$("#score").show(); console.log("hey");}, 10);
+	$("#score").text("score: " + String(score) + "  (" + String(bops) + " bops, " + String(Math.floor(score/bops/10)) + "% accuracy)");
+	setInterval(function(){$("#score").show();}, 10);
 	$("#restart").show();
+	$("#leave").show();
 }
 
 function updateKey() {
@@ -86,7 +86,6 @@ function updateKey() {
 	} else if (!ready) {
 		endGame("Too slow!");
 	} else {
-		//$("#game").attr("src", "../resources/img/s.jpg");
 		startTime = new Date();
 		currentKey = keys[Math.floor(Math.random() * keys.length)];
 		changeText("Press", currentKey);
@@ -97,83 +96,82 @@ function updateKey() {
 
 function changeTempo(newSpeed) {
 	stage++;
-	keysAdded = false;
-	$("#score").text("score: " + String(score) + "  (" + String(optimalScore/1000) + " bops, " + String(Math.floor(score*100/optimalScore)) + "% accuracy)");
+	$("#score").text("score: " + String(score) + "  (" + String(bops) + " bops, " + String(Math.floor(score/bops/10)) + "% accuracy)");
 	$("#score").show();
 	$("#speed").show();
-	setTimeout(function(){$("#speed").hide(3000);}, 750+interval);
+	setTimeout(function(){$("#speed").hide(3000);}, 750);
 	setTimeout(function(){$("#score").hide(750);}, 5500);
-	//console.log("Speed up!");
-	//console.log("(time: " + time + " seconds)");
 	clearInterval(si);
 	si = setInterval(updateKey, newSpeed);
 	interval = newSpeed;
-	if (stage == 4) {
-		$("body").css("background-color", "black");
-		$("#output").hide();
-	}
-	if (stage == 5) {
-		$("body").css("background-color", "#ffff77");
-		$("#output").show();
-		$("#highlight").css("color", "#111111")
+	switch (stage) {
+		case 1:
+			keys.push('j','k','l',';');
+			$("#letter").show();
+			setTimeout(function(){$("#letter").hide(3000);}, 750);
+			break;
+		case 2:
+			$("#highlight").css("--highlight-hue", "210");
+			break;
+		case 3:
+			break;
+		case 4:
+			keys.push('q','w','e','r','u','i','o','p');
+			$("#letter").show();
+			setTimeout(function(){$("#letter").hide(3000);}, 750);
+
+			$("#highlight").css("--highlight-hue", "0");
+			$("body").css("background-color", "black");
+			$("#output").hide();
+			break;
+		case 5:
+			$("body").css("background-color", "#ffff77");
+			$("#output").show();
+			$("#highlight").css("color", "black");
+			$("#highlight").css("border", "2px solid black");
+			$("#highlight").css("background-color", "hsla(0, 0%, 0%, 10%)");
+			break;
+		case 6:
+			keys.push('t','y','g','h','z','x','c','v','b','n','m');
+			$("#letter").show();
+			setTimeout(function(){$("#letter").hide(3000);}, 750);
+			break;
+		default:
+			alert("error 1");
 	}
 }
 
-//function changeColor() {
-//	if (stage == 5) $("body").css("background-color", "black");
-//}
-
 function updateTempo() {
-	time = audio.currentTime - latency;
 	switch (stage) {
 		case 0: // start of song
-			if (time > 50.5) changeTempo(1600);
+			if (bops == 24) changeTempo(1600);
 			break;
 		case 1: // first speedup
-			if (!keysAdded) {
-				keys.push('j','k','l',';');
-				$("#letter").show();
-				setTimeout(function(){$("#letter").hide(3000);}, 750);
-				keysAdded = true;
-			}
-			if (time > 89) changeTempo(1500);
+			if (bops == 48) changeTempo(1500);
 			break;
 		case 2: // mellow/emotional
-			if (time > 137) changeTempo(1250)
+			if (bops == 80) changeTempo(1250)
 			break;
 		case 3: // mellow/emotional pt 2
-			if (time > 177.3) changeTempo(1200);
+			if (bops == 112) changeTempo(1200);
 			break;
-		case 4: // hellfire
-			if (!keysAdded) {
-				keys.push('q','w','e','r','u','i','o','p');
-				$("#letter").show();
-				setTimeout(function(){$("#letter").hide(3000);}, 750);
-				keysAdded = true;
-			}
-			if (time > 216) changeTempo(1000);
+		case 4: // hellfire (black)
+			if (bops == 144) changeTempo(1000);
 			break;
-		case 5: // pop
-			if (time > 255.8) changeTempo(882); // not exact but hopefully won't drift too much
+		case 5: // pop (yellow)
+			if (bops == 184) changeTempo(882); // 882 isn't exact but the drift is negligible
 			break;
-		case 6: // pop pt 2
-			if (!keysAdded) {
-				keys.push('t','y','g','h','z','x','c','v','b','n','m');
-				$("#letter").show();
-				setTimeout(function(){$("#letter").hide(3000);}, 750);
-				keysAdded = true;
-			}
-			//changeColor();
+		case 6: // pop pt 2 (rainbow)
 			$("body").css("background-color", "hsl("+String(Math.floor(Math.random() * 360))+", 100%, 60%)");
-			if (time > 312) {
+			if (bops == 246) {
 				won = true;
 				endGame("Great job!");
 			}
 			break;
 		default:
-			alert("error");
+			alert("error 2");
 	}
-	//keys = ['f']; // COMMENT THIS OUT UNLESS YOU'RE TESTING SHIT
+	keys = ['f']; // COMMENT THIS OUT UNLESS YOU'RE TESTING SHIT
 }
 
 function keyDownHandler(e) {
@@ -186,10 +184,8 @@ function keyDownHandler(e) {
 			if(pressedKey == currentKey) {
 				var thisScore = 1000-(Math.abs(ms-interval/2))%1000;
 				score += thisScore;
-				optimalScore += 1000;
-				//console.log("Score: " + String(thisScore) + ", total: " + String(score));
+				bops += 1;
 				changeText(messages[Math.floor(Math.random() * messages.length)], "");
-				//$("#game").attr("src", "../resources/img/check.jpg");
 				ready = true;
 			} else {
 				endGame("Wrong Key!");
