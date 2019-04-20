@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>
-		Bop That Selection Page
-	</title>
+	<title>Home | Bop That!</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -14,7 +12,7 @@
 <style >
 	/* Responsive layout */
 @media screen and (max-width: 700px) {
-  .row {   
+  .row {
     flex-direction: column;
   }
 }
@@ -29,78 +27,33 @@
 </style>
 </head>
 <body>
-	<div class="header">
-		<h1>
-			Bop That!
-		</h1>
-	</div>
+	<h1>Bop That!</h1>
 
 	<div class="bar">
-		<a href="https://github.com/kaeleng/3308-project/issues"  class="active"> Link To Our Github </a>
-		<a href="/scores"> View the TOP Bop That Scores</a>
-		<a href="/login"  class="right"> SIGN OUT </a>
+		<a href="https://github.com/kaeleng/3308-project/issues"  class="active">Link To Our Github</a>
+		<a href="/scores">View the TOP Bop That Scores</a>
+		<a href="/login" class="right">SIGN OUT</a>
 	</div>
 
 	<div class="row">
 		<div class="leftSide">
 			<br>
-			<div class= "h2">
-				Play The Game
-			</div>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<div class="h2">
-				<a href="/game" class="button button1 " role="button" aria-pressed="true">BOP THAT!</a>
-			</div>
-			
-			<br>
-			<!-- <br>
-			<div class="h3">
-				This is where i will put a detailed description of the game after seeing it and then playing the game and talking to the group
-			</div>
-			<br>
-			<br>
-			<div class="h3">
-				Maybe put some pictures here or something but just to make it so that the entire page is filled and is adjusting to the size
-			</div>
-			<br>
-			<br>
-			<div class="h3">
-				And do it in this chunk sytle i think i will look better than if it was just all one 
-			</div> -->
+			<h2>Play The Game</h2>
+      <br><br>
+			<h2><a href="/game" class="button button1" role="button" aria-pressed="true">BOP THAT!</a></h2>
+			<br><br>
 		</div>
 		<div class="rightSide">
-			<div class="h2">
-				How To Play
-			</div>
-			<br>
-			<br>
-			<br>
-			<div class="h4">
-				<b>Basics:</b>
-			</div>
-			<div class="h3">
-				A new take on the classic game Bop It. Here you will be faced with a sequence of characters in rapid succsession. And it is your job to press the corresponding key as it appears. The longer you play the faster it gets!
-			</div>
-			<br>
-			<br>
-			<div class="h4">
-				<b></b>
-			</div>
-			
-			<br>
-			<br>
-			<div class="h4">
-				<b>Think you have the top score?</b>
-			</div>
-			<div class="h3">
-				See how you fare to the rest of the world by viewing the high scores!
-			</div>
-
-			
+			<h2>How To Play</h2><br><br><br>
+			<h4>Basics</h4>
+			<h3>This game is easy to learn: press the key that appears on the screen before time runs out.</h3>
+			<h3>Your score varies based on your timing. To get the most points, bop the correct key when the percussion (below) plays.</h3>
+      <audio controls>
+        <source src="../../resources/music/percussion.ogg" type="audio/ogg">
+        <source src="../../resources/music/percussion.mp3" type="audio/mpeg">
+        (Your browser does not support the audio element.)
+      </audio>
+			<h3>As you go, the game will get faster, more keys will be added, and the soundtrack & visuals will get more intense. See if you can make it to 246 bops!</h3>
 			<!-- <br>
 			<a href="https://github.com/kaeleng/3308-project/issues" class="btn btn-primary btn-lg " role="button" aria-pressed="true">View High Scores</a> -->
 		</div>
