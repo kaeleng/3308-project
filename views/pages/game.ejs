@@ -37,9 +37,11 @@
 			background-color: hsla(var(--highlight-hue), 100%, 50%, 15%);
 			border-radius: 5px;
 			padding: 7px 15px 9px;
+			margin-right: 30px;
 		}
 
 		.button {
+			font-size: 1em;
 			background-color: rgba(255, 255, 255, 0);
 			color: black;
 			border: 2px solid var(--main-color);
@@ -50,6 +52,7 @@
 			display: inline-block;
 			-webkit-transition-duration: 0.4s; /* Safari */
 			transition-duration: 0.4s;
+			text-decoration: none;
 			cursor: pointer;
 		}
 		.button:hover {
@@ -59,7 +62,7 @@
 		.popup {
 			font-size: 1em;
 			font-style: italic;
-			margin: 25px 18px 0px 0px;
+			margin: 25px 0px 0px;
 			color: #888888;
 		}
 
@@ -82,34 +85,29 @@
 			--main-color: #4CAF50;
 		}
 		#restart {
-			--main-color: red;
-			font-size: .8em;
+			--main-color: #0066ff;
 		}
-
+		#leave {
+			--main-color: red;
+		}
 	</style>
 </head>
 <body>
 	<button id="latency">Change Audio Latency</button>
+
 	<div id="top">
 		<span id="output">Get ready to</span><span id="highlight">Bop That!</span><br>
 	</div>
-<div id="bottom">
-	<button class="button" id="play">PLAY</button>
-	<button class="button" id="restart">Restart</button><br>
-	<p class="popup" id="score"></p>
-	<p class="popup" id="speed">Speeding up!</p>
-	<p class="popup" id="letter">More letters added!</p>
-</div>
+	<div id="bottom">
+		<button class="button" id="play">PLAY</button>
+		<button class="button" id="restart">Restart</button>
+		<a href="/selection" class="button" id="leave">Leave</a>
 
-	<audio id="audio">
-		<source src="../resources/music/BopThat.mp3" type="audio/mpeg"/>
-	</audio>
-
-	<!--
-	<div id="game">
-		<img id="background">
+		<p class="popup" id="score">Score will go here</p>
+		<p class="popup" id="speed">Speeding up!</p>
+		<p class="popup" id="letter">More letters added!</p>
 	</div>
-	-->
 
+	<audio id="audio"><source src="../../resources/music/BopThat.mp3" type="audio/mpeg"/></audio>
 </body>
 </html>
