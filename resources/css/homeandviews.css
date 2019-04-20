@@ -18,27 +18,27 @@
 	padding: 20px;
 }
 
-.header h1 {
+h1 {
 	font-size: 70px;
 }
 
-.header h2 {
+h2 {
 	font-size: 50px;
 	text-align: center;
 }
 
-.header h3 {
+h3 {
 	font-size: 30px;
 	text-align: left;
 }
 
-.header h4 {
+h4 {
 	font-size: 30px;
 	text-align: left;
 
 }
 
-.header h5 {
+h5 {
 	font-size: 90px;
 	text-align: left;
 	padding: 20px;
