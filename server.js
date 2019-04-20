@@ -136,22 +136,21 @@ app.get('/register', function(req, res) {
 app.post('/register', function(req, res){
   var username = req.body.username;
   var pwd = req.body.password;
+  var exists_statement = "SELECT COUNT(*) from users where username = " + username;
   var insert_statement = "INSERT INTO users(id, username, password) VALUES('" + uuidv4() + "','" + 
               username + "','" + pwd +"')";
-    db.task('get-everything', task => {
-        return task.batch([
-            task.any(insert_statement)
-        ]);
-    })
-    .catch(error => {
-        // display error message in case an error
-            request.flash('error', err);
-            response.render('pages/register', {
-                title: 'Home Page',
-                userDate: ''
-            })
-          });
-    res.redirect('/learn');
+  db.one(exists_statement)
+    .then(data => {
+      if(data[0] != 0) {
+        res.render('pages/register', {
+          title: 'Home Page',
+          userDate: ''
+        });
+      } else {
+        db.none(insert_statement);
+        res.redirect('/learn');
+      }
+    });
 });
 
 app.listen(3000);
