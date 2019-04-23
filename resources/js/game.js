@@ -1,20 +1,33 @@
+var messages = [
+	"Good job!",
+	"Bopped that one!",
+	"Impressive!",
+	"Great work!",
+	"Fantastic!",
+	"Incredible!",
+	"lol gottem",
+	"You have most certainly bopped that.",
+	"Hot dog!",
+	"Great work, sport!",
+	"Whomst'd've hath did this?",
+	"WhO iS ThIS gUy?",
+	"You're rougher than the rest of 'em",
+	"That key just got BOPPED!",
+	"That was bopped successfully."
+];
 var score = 0;
 var bops = 0;
-var keyPressed = false;
 var startTime = new Date();
 var currentKey = "a";
 var pressedKey = "";
 var interval = 2000;
 var running = false;
-var won = false;
 var keys = ['a', 's', 'd', 'f'];
-var messages = ["Good job!", "Bopped that one!", "Impressive!", "Great work!", "Fantastic!", "Incredible!", "lol gottem", "You have most certainly bopped that.", "Hot dog!", "Great work, sport!", "Whomst'd've hath did this?", "WhO iS ThIS gUy?", "Y'all ain't ready", "Here it comes!", "You're fast as Sonic!", "You're rougher than the rest of 'em", "That just got BOPPED!"];
 var si;
 var audio;
 var ready = true;
 var stage = 0;
-var latency = 0; // seconds of audio delay, varies with computer, when submitting final work maybe set to .1
-// with Nate W's bluetooth earbuds it's .35
+var latency = .33; // seconds of audio delay, Nate W's bluetooth earbuds are at .34, when submitting final work maybe set to .1
 
 $(document).ready(function() {
 	$("#restart").hide();
@@ -29,9 +42,8 @@ $(document).ready(function() {
 		if (input >= 0 && input <= 1) {
 			latency = input;
 			alert("audio latency has been set to " + String(latency) + " seconds");
-		} else {
-			alert("Whoops, that wasn't a decimal between 0 and 1.");
 		}
+		else alert("Whoops, that wasn't a decimal between 0 and 1.");
 	});
 
 	$("#play").click(function() {
@@ -43,10 +55,9 @@ $(document).ready(function() {
 		setTimeout(function(){si = setInterval(updateKey, 2000);}, 1000*latency + 2000);
 	});
 
-	$("#restart").click(function() {
-		location.reload();
-	});
+	$("#restart").click(function() {location.reload();});
 });
+
 
 function changeText(output, highlight) {
 	$("#output").text(output);
@@ -61,7 +72,7 @@ function changeText(output, highlight) {
 function endGame(message) {
 	clearInterval(si);
 	running = false;
-	if (won) {
+	if (message == "Great Job!") {
 		$("body").css("background-color", "#f8f8f8");
 		$("#highlight").css("color", "hsl(30, 100%, 43%)");
 		$("#highlight").css("border", "2px solid hsl(30, 100%, 50%)");
@@ -80,10 +91,8 @@ function endGame(message) {
 }
 
 function updateKey() {
-	updateTempo();
-	if (won) {
-		endGame("Great Job!");
-	} else if (!ready) {
+	if (updateTempo()); // updateTempo returns true if player wins the game
+	else if (!ready) {
 		endGame("Too slow!");
 	} else {
 		startTime = new Date();
@@ -95,20 +104,21 @@ function updateKey() {
 }
 
 function changeTempo(newSpeed) {
-	stage++;
 	$("#score").text("score: " + String(score) + "  (" + String(bops) + " bops, " + String(Math.floor(score/bops/10)) + "% accuracy)");
 	$("#score").show();
 	$("#speed").show();
-	setTimeout(function(){$("#speed").hide(3000);}, 750);
-	setTimeout(function(){$("#score").hide(750);}, 5500);
+	setTimeout(function(){$("#speed").hide(3000);}, 1000);
+	setTimeout(function(){$("#score").hide(750);}, 6000);
 	clearInterval(si);
 	si = setInterval(updateKey, newSpeed);
 	interval = newSpeed;
+
+	stage++;
 	switch (stage) {
 		case 1:
 			keys.push('j','k','l',';');
 			$("#letter").show();
-			setTimeout(function(){$("#letter").hide(3000);}, 750);
+			setTimeout(function(){$("#letter").hide(3000);}, 1000);
 			break;
 		case 2:
 			$("#highlight").css("--highlight-hue", "210");
@@ -118,7 +128,7 @@ function changeTempo(newSpeed) {
 		case 4:
 			keys.push('q','w','e','r','u','i','o','p');
 			$("#letter").show();
-			setTimeout(function(){$("#letter").hide(3000);}, 750);
+			setTimeout(function(){$("#letter").hide(3000);}, 1000);
 
 			$("#highlight").css("--highlight-hue", "0");
 			$("body").css("background-color", "black");
@@ -128,16 +138,14 @@ function changeTempo(newSpeed) {
 			$("body").css("background-color", "#ffff77");
 			$("#output").show();
 			$("#highlight").css("color", "black");
-			$("#highlight").css("border", "2px solid black");
-			$("#highlight").css("background-color", "hsla(0, 0%, 0%, 10%)");
+			$("#highlight").css("border", "3px solid black");
+			$("#highlight").css("background-color", "hsla(0, 0%, 0%, 8%)");
 			break;
 		case 6:
 			keys.push('t','y','g','h','z','x','c','v','b','n','m');
 			$("#letter").show();
-			setTimeout(function(){$("#letter").hide(3000);}, 750);
+			setTimeout(function(){$("#letter").hide(3000);}, 1000);
 			break;
-		default:
-			alert("error 1");
 	}
 }
 
@@ -150,7 +158,7 @@ function updateTempo() {
 			if (bops == 48) changeTempo(1500);
 			break;
 		case 2: // mellow/emotional
-			if (bops == 80) changeTempo(1250)
+			if (bops == 80) changeTempo(1250);
 			break;
 		case 3: // mellow/emotional pt 2
 			if (bops == 112) changeTempo(1200);
@@ -164,32 +172,27 @@ function updateTempo() {
 		case 6: // pop pt 2 (rainbow)
 			$("body").css("background-color", "hsl("+String(Math.floor(Math.random() * 360))+", 100%, 60%)");
 			if (bops == 246) {
-				won = true;
-				endGame("Great job!");
+				endGame("Great Job!");
+				return true;
 			}
-			break;
-		default:
-			alert("error 2");
 	}
-	keys = ['f']; // COMMENT THIS OUT UNLESS YOU'RE TESTING SHIT
+	//keys = ['f']; // COMMENT THIS OUT UNLESS YOU'RE TESTING SHIT
+	return false;
 }
 
 function keyDownHandler(e) {
 	pressedKey = e.key;
 	if(running) {
+		running = false;
 		var now = new Date();
 		var ms = (now.getSeconds() * 1000 + now.getMilliseconds()) - (startTime.getSeconds() * 1000 + startTime.getMilliseconds());
-		if(pressedKey.length != 0) {
-			running = false;
-			if(pressedKey == currentKey) {
-				var thisScore = 1000-(Math.abs(ms-interval/2))%1000;
-				score += thisScore;
-				bops += 1;
-				changeText(messages[Math.floor(Math.random() * messages.length)], "");
-				ready = true;
-			} else {
-				endGame("Wrong Key!");
-			}
+		if(pressedKey == currentKey) {
+			score += 1000-(Math.abs(ms-interval/2))%1000;
+			bops += 1;
+			changeText(messages[Math.floor(Math.random() * messages.length)], "");
+			ready = true;
+		} else {
+			endGame("Wrong Key!");
 		}
 	}
 }
