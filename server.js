@@ -105,13 +105,35 @@ app.post('/register', function(req, res){
 });
 
 app.get('/scores', function(req,res){
-	res.render('pages/highscores.ejs',{
-		my_title: "Top Scores"
+	var player = 'select * from player_info ORDER BY highscore DESC LIMIT 10;';
+	
+/*
+db.task('get-everything', task => {
+		return task.batch([ 
+			task.any(player)
+			
+		]);
+	})
+
+*/
+db.any(player)
+	.then(function(rows) {
+	res.render('pages/highscores.ejs', {
+		my_title:"High scores",
+		data: rows
+		})
+		//console.log(rows);
+	})
+
+.catch(error => {
+		request.flash('error',err);
+		res.render('pages/highscores.es', {
+			my_title: 'High Scores Error',
+			data: ''
+		})
 	});
+
 });
-
-
-
 
 app.listen(3000);
 console.log('3000 is the magic port');
