@@ -16,6 +16,7 @@ var messages = [
 	"That was bopped successfully."
 ];
 var score = 0;
+var name = "";
 var bops = 0;
 var startTime = new Date();
 var currentKey = "a";
@@ -88,6 +89,23 @@ function endGame(message) {
 	setInterval(function(){$("#score").show();}, 10);
 	$("#restart").show();
 	$("#leave").show();
+	setTimeout(function(){
+		name = prompt("Enter your name to save your score!!!");
+		console.log(String(score) + name);
+		var data = {};
+		data.name = name;
+		data.score = score;
+		$.ajax({
+			type: "POST",
+			data: JSON.stringify(data),
+			contentType: 'application/json',
+			url: '/game/add',
+			success: function(data) {
+				console.log("success");
+			}
+		});
+	}, 300);
+
 }
 
 function updateKey() {
