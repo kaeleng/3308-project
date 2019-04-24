@@ -95,28 +95,20 @@ app.get('/login/check', function(req, res) {
   // console.log(users_name);
   // console.log(users_password);
   var user_info =  "select username, password from users where username = '" + users_name + "' and password = '" + users_password+"';";
-    // db.query("select * from users;", function(err, result, fields) {
-    //   console.log("Here");
-    //   // if (err) {
-    //   //   throw err;
-    //   // }
-    //   console.log(result)
-    //   if(result.length > 0){
-    //     if(result){
-    //       console.log("hellooo")
-    //     }
-    //   }
-    // });
 
 
   db.any(user_info)
       .then(function(rows) {
-          if (len(rows) > 0) {
-            res.redirect('/learn');
+        console.log("working");
+
+          if(rows.length != 0){
+            res.redirect('/selection');
           }
-          else {
+          else{
+            alert("Account with that username does not exist")
             res.redirect('/login');
           }
+        
       })
     .catch(function (err) {
             // display error message in case an error
