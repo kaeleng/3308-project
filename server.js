@@ -66,6 +66,31 @@ app.get('/game', function(req, res) {
   });
 });
 
+app.post('/game/add', function(req, res) {
+  var score = String(req.body.score);
+  var name = req.body.name;
+  var today = new Date();
+  var month = String(today.getMonth());
+  if (month.length == 1) {
+    month = "0" + month;
+  }
+  var day = String(today.getDate())
+  if (day.length == 1) {
+    day = "0" + day;
+  }
+  var date = "2019" + month + day;
+  var insert_statement = "INSERT INTO player_info(PlayerName, HighscoreDate, HighScore) VALUES('" + name + "', '" + date + "', " + score + ");";
+  console.log(insert_statement);
+  db.task('get-everything', task => {
+    return task.batch([task.any(insert_statement)]);
+  })
+  .catch(error => {
+            res.render('pages/game', {
+                title: 'Bop That!',
+            })
+          });
+    //res.redirect('/game');
+});
 
 app.get('/login', function(req, res) {
   var query = 'select * from users';
@@ -86,8 +111,6 @@ app.get('/login', function(req, res) {
             })
         })
 });
- 
-
 
 app.get('/login/check', function(req, res) {
   var users_name = req.query.username;
