@@ -1,5 +1,5 @@
 body{
-	background:#3B82BF;
+	background:rgb(175, 238, 238);
 }
 
 #username{
@@ -30,7 +30,7 @@ body{
 	margin:auto;
 	margin-top:3em;
 	padding:1.5em;
-	background:#4F5902;
+	background:rgb(144,238,144);
 	box-shadow:5px 5px 10px #575757;
 }
 

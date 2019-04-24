@@ -92,15 +92,17 @@
 	<div id="top">
 		<span id="output">Get ready to</span><span id="highlight">Bop That!</span><br>
 	</div>
-	<div id="bottom">
-		<button class="button" id="play">PLAY</button>
-		<button class="button" id="restart">Restart</button>
+	<form id="bottom" action="/game/add" method="POST">
+		<p class="button" id="play">PLAY</p>
+		<button class="button" id="restart" type="submit">Save & Restart</button>
 		<a href="/selection" class="button" id="leave">Leave</a>
 
 		<p class="popup" id="score">Score will go here</p>
 		<p class="popup" id="speed">Speeding up!</p>
 		<p class="popup" id="letter">More letters added!</p>
-	</div>
+		<p class="popup" id="varscore" name="score"></p>
+		<p class="popup" id="varname" name="name"></p>
+	</form>
 
 	<audio id="audio"><source src="../../resources/music/BopThat.mp3" type="audio/mpeg"/></audio>
 </body>
