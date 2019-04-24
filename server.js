@@ -67,13 +67,61 @@ app.get('/game', function(req, res) {
 });
 
 
-
 app.get('/login', function(req, res) {
-	res.render('pages/login.ejs',{
-		local_css:"signin.css", 
-		my_title:"Login Page"
-	});
+  var query = 'select * from users';
+  db.any(query)
+      .then(function(rows) {
+          res.render('pages/login.ejs',{
+            my_title: "Login Page",
+            data: rows
+          })
+      })
+      .catch(function (err) {
+            // display error message in case an error
+            //request.flash('error', err);
+      console.log("Not Working");
+            res.render('pages/login.ejs', {
+                my_title: 'Login Page',
+                data: ''
+            })
+        })
 });
+ 
+
+
+app.get('/login/check', function(req, res) {
+  var users_name = req.query.username;
+  var users_password = req.query.password;
+  // console.log(users_name);
+  // console.log(users_password);
+  var user_info =  "select username, password from users where username = '" + users_name + "' and password = '" + users_password+"';";
+
+
+  db.any(user_info)
+      .then(function(rows) {
+        console.log("working");
+
+          if(rows.length != 0){
+            res.redirect('/selection');
+          }
+          else{
+            alert("Account with that username does not exist")
+            res.redirect('/login');
+          }
+        
+      })
+    .catch(function (err) {
+            // display error message in case an error
+            //request.flash('error', err);
+      console.log("Not Working");
+            res.render('pages/login.ejs', {
+                my_title: 'Login Page',
+                data: ''
+            })
+        })
+});
+
+
 
 // registration page 
 app.get('/register', function(req, res) {
