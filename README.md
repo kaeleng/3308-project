@@ -6,3 +6,5 @@ If you follow the beat, you get a higher score. We wanted to give a global high 
 With a login and register page, we give players a way to protect their account and feel like a legitamate site.
 
 We had a lot of fun making this game, and we hope you enjoy it too.
+
+http://bopthat.herokuapp.com/
