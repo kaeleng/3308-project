@@ -7,4 +7,4 @@ With a login and register page, we give players a way to protect their account a
 
 We had a lot of fun making this game, and we hope you enjoy it too.
 
-http://bopthat.herokuapp.com/
+http://bopthat.herokuapp.com/game
